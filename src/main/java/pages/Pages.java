@@ -95,16 +95,26 @@ public class Pages {
 	//确认交易
 	@FindBy(how = How.XPATH, using = "//android.widget.Button[@resource-id=\"com.tencent.mm:id/dyg\"]")
 	public WebElement Pay_NowPayButton;
-	@FindBy(how = How.XPATH, using = "//android.widget.RelativeLayout[@resource-id=\"com.tencent.mm:id/ckn\"]/android.widget.RelativeLayout[1]")
-	public WebElement Pay_InputPayPassword;
 	
+	//支付成功页面，返回商家
+	@FindBy(how = How.XPATH, using = "//android.widget.Button[@resource-id=\"com.tencent.mm:id/drs\"]")
+	public WebElement Pay_GoBackAppButton;
 	
+	//支付成功后，点击返回商家，成功返回APP，且跳转的页面正常
+	@FindBy(how = How.XPATH, using = "//android.widget.TextView[@resource-id=\"com.gantang.gantang:id/tv_order_state\"]")
+	public WebElement Pay_JudeGoBackAPP;
+	@FindBy(how = How.XPATH, using = "//android.widget.TextView[@resource-id=\"com.gantang.gantang:id/tv_continue_ticket\"]")
+	public WebElement PaySuccess_ContinueBus;
+	@FindBy(how = How.XPATH, using = "//android.widget.TextView[@resource-id=\"com.gantang.gantang:id/tv_look_order\"]")
+	public WebElement PaySuccess_ViewOrders;
+	@FindBy(how = How.XPATH, using = "//android.widget.TextView[@resource-id=\"com.gantang.gantang:id/tv_join_chat\"]")
+	public WebElement PaySuccess_JoinChat;
+	@FindBy(how = How.XPATH, using = "//android.widget.LinearLayout[@resource-id=\"com.gantang.gantang:id/tv_share\"]")
+	public WebElement PaySuccess_ShareRedPacket;
 	
-	
-	
-	
-	
-	
+	//我的订单页面
+	@FindBy(how = How.ID, using = "com.gantang.gantang:id/tv_pay")
+	public WebElement MyOrder_OrderStatus;
 	
 
 }

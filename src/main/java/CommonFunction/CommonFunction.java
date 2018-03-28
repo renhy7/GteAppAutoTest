@@ -8,6 +8,7 @@ import io.appium.java_client.remote.MobileCapabilityType;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -16,8 +17,15 @@ import java.io.PrintWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
@@ -52,24 +60,39 @@ public class CommonFunction {
 	private static Jedis redis;
 	private static String mobile = "18618268747";
 	private static String url = "https://weixin.gtcx.top/ebus/app/ph/getImgInputValidateCode";
-	
+	private static Connection connection;
+	private static PreparedStatement ps;
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		//Dailylog.logInfo(getAndroidDeviceNumber());
 		StartAppiumService();
 		driver = getAndroidDriver();
-		moveToLeft(driver,4);
-		Pages pages = new Pages(driver);
-		pages.StartUsingAPP.click();
+//		moveToLeft(driver,4);
+//		Pages pages = new Pages(driver);
+//		pages.StartUsingAPP.click();
 		
 		
 //		driver.findElementById("com.gantang.gantang:id/iv_left").click();
 //		
 //		driver.findElementById("com.gantang.gantang:id/iv_head").click();
+//		String insertsql = "INSERT INTO `service_number_plans` "
+//				+ "(`buses_id`, `routes_id`, `drivers_id`, `service_date`, `service_time`, `price`,"
+//				+ " `weixin`, `is_enable`, `is_complete`, `create_time`, `update_time`, `last_time`, "
+//				+ "`discounts`, `is_discount`, `present_price`, `frequency_number`, `service_date_time`,"
+//				+ " `last_date_time`, `create_id`, `part_dept_id`) VALUES('170','57','55','"+getNowDateFormatyyyyMMdd()+"',"
+//				+ "'18:30:00','16.8','','1','0','"+getNowTime()+"','"+getNowTime()+"','20:15:00',"
+//				+ "'1','0','0.01','022','"+getNowDateFormatyyyyMMdd()+" 18:30:00','"+getNowDateFormatyyyyMMdd()+" 20:15:00','1','1')";
+//		insertInto(insertsql);
+//	    String deletesql = "DELETE FROM `service_number_plans` WHERE service_date = '"+getNowDateFormatyyyyMMdd()+"' AND frequency_number = '022'";
+//	    Delete(deletesql);
+		
+		int width = driver.manage().window().getSize().width;
+		int height = driver.manage().window().getSize().height;
+		Dailylog.logInfo("width:"+width+"height:"+height);
 		
 		
-	
+		
+		
 	}
 	
 	
@@ -422,17 +445,24 @@ public class CommonFunction {
 		}
 		int width = driver.manage().window().getSize().width;
 		int height = driver.manage().window().getSize().height;
-		Duration druation = Duration.ofSeconds(1);
+		Duration duration = Duration.ofSeconds(1);
 		Dailylog.logInfo("width:"+width+"\n height:"+height);
 		
 		driver.findElement(By.className("android.widget.ImageView")).getLocation();
 		for(int i = 1; i <= pageNumber; i++){
-			new TouchAction(driver).press(width-10, height/2).waitAction(druation).moveTo(width/4, height/2).release().perform();
+			new TouchAction(driver).press(width-10, height/2).waitAction(duration).moveTo(width/4, height/2).release().perform();
 		}
 		
 	}
 	
-	//登录
+	/**
+	 * @author renhaiyang
+	 * @usage 用户登录APP
+	 * @param driver
+	 * @param pages
+	 * @param mobile
+	 * @param defaultPassword
+	 */
 	public static void Login(AndroidDriver driver, Pages pages, String mobile, String defaultPassword){
 		try {
 			Thread.sleep(5000);
@@ -455,8 +485,123 @@ public class CommonFunction {
 			pages.Login_LoginButton.click();
 		}
 	}
-	public static int getNowDateDay(){
-		Calendar now =Calendar.getInstance();
+	
+	/**
+	 * @author renhaiyang
+	 * @usage 获取当前日期的day
+	 * 
+	 * @return
+	 */
+	
+	public static int getNowDateFormatMM(){
+		Calendar now = Calendar.getInstance();
 		return now.get(Calendar.DAY_OF_MONTH);
 	}
+	/**
+	 * @author renhaiyang
+	 * @Usage 获取当前日期的格式 :yyyy-MM-dd
+	 * 
+	 * @return
+	 */
+	
+	public static String getNowDateFormatyyyyMMdd(){
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		return sdf.format(date);
+	}
+	/**
+	 * @author renhaiyang
+	 * @Usage 获取当前时间格式：yyyy-MM-dd HH:mm:ss
+	 * 
+	 * @return
+	 */
+	
+	public static String getNowTime(){
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		return sdf.format(date);
+	}
+	/**
+	 * @author renhaiyang
+	 * @usage 获取MySQL链接
+	 * @return
+	 */
+	public static Connection getMysqlConnection(){
+		Properties properties = new Properties();
+		
+		Connection connection = null;
+		try{
+			FileInputStream in = new FileInputStream("Conf.properties");
+			properties.load(in);
+			String mysqldriver = properties.getProperty("mysqldriver");
+			String mysqlurl = properties.getProperty("mysqlurl");
+			String mysqluser = properties.getProperty("mysqluser");
+			String mysqlpassword = properties.getProperty("mysqlpassword");
+			Class.forName(mysqldriver);
+		    connection = DriverManager.getConnection(mysqlurl, mysqluser, mysqlpassword);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return connection;
+	}
+	
+	/**
+	 * @author renhaiyang
+	 * @usage 插入数据
+	 * @param sql
+	 */
+	
+	public static void insertInto(String sql){
+		connection = getMysqlConnection();
+		try {
+			ps = connection.prepareStatement(sql);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			try {
+				ps.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	/**
+	 * @author renhaiyang
+	 * @Usage 删除数据
+	 * 
+	 * @param sql
+	 */
+	public static void Delete(String sql){
+		connection = getMysqlConnection();
+		try{
+			ps = connection.prepareStatement(sql);
+			ps.execute();
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			try {
+				connection.close();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			try {
+				ps.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	
 }
