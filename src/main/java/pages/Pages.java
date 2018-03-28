@@ -116,5 +116,14 @@ public class Pages {
 	@FindBy(how = How.ID, using = "com.gantang.gantang:id/tv_pay")
 	public WebElement MyOrder_OrderStatus;
 	
+	//登录微信
+	@FindBy(how = How.XPATH, using = "//android.widget.TextView[@resource-id=\"android:id/text1\"]")
+	public WebElement WeChat_TitleLoginWeChat;
+	@FindBy(how = How.XPATH, using = "//android.widget.EditText[@resource-id=\"com.tencent.mm:id/ht\" and @text=\"请填写微信号/QQ号/邮箱\"]")
+	public WebElement WeChat_Username;
+	@FindBy(how = How.XPATH, using = "//android.widget.LinearLayout[@resource-id=\"com.tencent.mm:id/byb\"]/android.widget.EditText[1]")
+	public WebElement WeChat_Password;
+	@FindBy(how = How.XPATH, using = "//android.widget.Button[@resource-id=\"com.tencent.mm:id/byd\"]")
+	public WebElement WeChat_Login;
 
 }

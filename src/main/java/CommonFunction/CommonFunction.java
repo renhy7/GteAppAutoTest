@@ -602,6 +602,17 @@ public class CommonFunction {
 			}
 		}
 	}
+	public static void loginWechat(AndroidDriver driver, Pages pages, String mobile, String password){
+		pages.WeChat_Username.clear();
+		pages.WeChat_Username.sendKeys(mobile);
+		pages.WeChat_Password.clear();
+		pages.WeChat_Password.sendKeys(password);
+		if(checkElementDisplays(driver, pages.WeChat_Login, 10)){
+			pages.WeChat_Login.click();
+		}else{
+			Assert.assertTrue(false, "微信登录失败……");
+		}
+	}
 	
 	
 }

@@ -59,7 +59,11 @@ public class NABuyTicket extends SupperTestClass {
 			pages.BookSeat_ConfirmSeat.click();
 			pages.BookSeat_ConfirmSeat.click();
 			pages.Pay_ConfirmPayButton.click();
-			Thread.sleep(3000);
+			Thread.sleep(2000);
+			if(common.checkElementDisplays(driver, pages.WeChat_TitleLoginWeChat, 10)){
+				common.loginWechat(driver, pages, "18618268747", "test123");  //随便写的微信号，需要测试的时候，自己手动需要修改
+			}
+			Thread.sleep(10000);
 			pages.Pay_NowPayButton.click();
 			
 			
@@ -85,19 +89,19 @@ public class NABuyTicket extends SupperTestClass {
 			int width = driver.manage().window().getSize().width;
 			int height = driver.manage().window().getSize().height;
 			Duration duration = Duration.ofSeconds(1);
-			
+			Thread.sleep(2000);
 			new TouchAction(driver).press((int)(a1*width), (int)(b1*height)).waitAction(duration).release().perform();
-			
+			Thread.sleep(2000);
 			new TouchAction(driver).press((int)(a2*width), (int)(b2*height)).waitAction(duration).release().perform();
-			
+			Thread.sleep(2000);
 			new TouchAction(driver).press((int)(a3*width), (int)(b3*height)).waitAction(duration).release().perform();
-			
+			Thread.sleep(2000);
 			new TouchAction(driver).press((int)(a4*width), (int)(b4*height)).waitAction(duration).release().perform();
-			
+			Thread.sleep(2000);
 			new TouchAction(driver).press((int)(a5*width), (int)(b5*height)).waitAction(duration).release().perform();
-			
+			Thread.sleep(2000);
 			new TouchAction(driver).press((int)(a6*width), (int)(b6*height)).waitAction(duration).release().perform();
-			
+			Thread.sleep(2000);
 			if(common.checkElementExists(driver, pages.Pay_GoBackAppButton, 5)){
 				pages.Pay_GoBackAppButton.click();
 			}else{
