@@ -3,9 +3,8 @@ package TestData;
 import java.io.FileInputStream;
 import java.util.Properties;
 
+public class PropsUtils {
 
-public class  PropsUtils{
-	
 	public static Properties loadProps() {
 		Properties properties = new Properties();
 		try {
@@ -20,6 +19,5 @@ public class  PropsUtils{
 	public static int getDefaultTimeout() {
 		return Integer.parseInt(loadProps().getProperty("DefaultTimeout"));
 	}
-	
-	
+
 }
