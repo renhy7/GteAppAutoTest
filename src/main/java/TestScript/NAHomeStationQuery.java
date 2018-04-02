@@ -3,7 +3,6 @@ package TestScript;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import Logger.Dailylog;
 import pages.Pages;
 
 public class NAHomeStationQuery extends SupperTestClass {
