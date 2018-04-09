@@ -28,6 +28,9 @@ import java.util.Date;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
@@ -64,8 +67,8 @@ public class CommonFunction {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		StartAppiumService();
-		driver = getAndroidDriver();
+		// StartAppiumService();
+		// driver = getAndroidDriver();
 		// moveToLeft(driver,4);
 		// Pages pages = new Pages(driver);
 		// pages.StartUsingAPP.click();
@@ -91,9 +94,21 @@ public class CommonFunction {
 		// "DELETE FROM `service_number_plans` WHERE service_date = '"+getNowDateFormatyyyyMMdd()+"' AND frequency_number = '022'";
 		// Delete(deletesql);
 
-		int width = driver.manage().window().getSize().width;
-		int height = driver.manage().window().getSize().height;
-		Dailylog.logInfo("width:" + width + "height:" + height);
+		// int width = driver.manage().window().getSize().width;
+		// int height = driver.manage().window().getSize().height;
+		// Dailylog.logInfo("width:" + width + "height:" + height);
+		String hotAreaJedis = getRedisResponseValue(
+				"city:city_area_index_chirld:1:0", 15);
+		Dailylog.logInfo("hotAreastr:" + hotAreaJedis);
+		JSONArray hotAreaJson = (JSONArray) JSONArray.fromObject(hotAreaJedis);
+		String[] hotAreaName = new String[hotAreaJson.size()];
+		for (int i = 0; i < hotAreaJson.size(); i++) {
+			JSONObject obj = (JSONObject) hotAreaJson.get(i);
+			hotAreaName[i] = obj.getString("text");
+		}
+		for (String str : hotAreaName) {
+			Dailylog.logInfo("hotAreaName:" + str);
+		}
 
 	}
 
@@ -430,13 +445,13 @@ public class CommonFunction {
 
 	/**
 	 * @author renhaiyang
-	 * @Usage 登录页面，获取图形验证码和短信验证码
+	 * @Usage 获取从redis里的取值
 	 * @param str
 	 * @param index
 	 * @return
 	 */
 
-	public static String getPhotoAndMessageValidate(String str, int index) {
+	public static String getRedisResponseValue(String str, int index) {
 		Jedis redis = new Jedis();
 		redis = getRedisConnection();
 		redis.select(index);
@@ -498,7 +513,7 @@ public class CommonFunction {
 			pages.Login_InputMobile.clear();
 			pages.Login_InputMobile.sendKeys(mobile);
 			pages.Login_InputValidateCode.clear();
-			pages.Login_InputValidateCode.sendKeys(getPhotoAndMessageValidate(
+			pages.Login_InputValidateCode.sendKeys(getRedisResponseValue(
 					"cmn:verify:" + mobile + ":imgcode", 15));
 			pages.Login_InputPassword.clear();
 			pages.Login_InputPassword.sendKeys(defaultPassword);

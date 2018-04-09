@@ -4,9 +4,11 @@
 	<test name="Test">
 		<classes>
 			<!-- <class name="TestScript.NASignInAndSignOut" /> 
-			<class name="TestScript.NABuyTicket" /> -->
-
 			<class name="TestScript.NAHomeStationQuery" />
+			<class name="TestScript.NABuyTicket" /> -->
+            
+            <class name="TestScript.NAHomeHotArea" />
+			
 		</classes>
 	</test> <!-- Test -->
 </suite> <!-- Suite -->

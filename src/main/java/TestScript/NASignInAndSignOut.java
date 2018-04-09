@@ -36,7 +36,7 @@ public class NASignInAndSignOut extends SupperTestClass {
 
 			if (!(common.checkElementDisplays(driver, pages.Home_PersonInfo, 5) || common
 					.checkElementDisplays(driver, pages.Login_LoginButton, 5))) {
-				common.moveToLeft(driver, 4);
+				common.moveToLeft(driver, 5);
 				pages.StartUsingAPP.click();
 			}
 
@@ -69,7 +69,7 @@ public class NASignInAndSignOut extends SupperTestClass {
 			// 验证短信验证码不能为空
 			pages.Login_InputValidateCode.clear();
 			pages.Login_InputValidateCode.sendKeys(common
-					.getPhotoAndMessageValidate("cmn:verify:" + mobile
+					.getRedisResponseValue("cmn:verify:" + mobile
 							+ ":imgcode", 15));
 			pages.Login_InputPassword.clear();
 			pages.Login_LoginButton.click();
@@ -78,9 +78,9 @@ public class NASignInAndSignOut extends SupperTestClass {
 			// 验证手机号和短信验证码是否匹配,提示：请输入正确的手机号和验证码
 			pages.Login_InputPassword.sendKeys("123456");
 			pages.Login_LoginButton.click();
-			Dailylog.logInfo(common.getPhotoAndMessageValidate("cmn:verify:"
+			Dailylog.logInfo(common.getRedisResponseValue("cmn:verify:"
 					+ mobile + ":code", 15));
-			if (common.getPhotoAndMessageValidate("cmn:verify:" + mobile
+			if (common.getRedisResponseValue("cmn:verify:" + mobile
 					+ ":code", 15) == null) {
 				common.assertToast("请输入正确的手机号和验证码");
 			} else {
@@ -91,7 +91,7 @@ public class NASignInAndSignOut extends SupperTestClass {
 			pages.Login_InputMobile.sendKeys(mobile);
 			pages.Login_InputValidateCode.clear();
 			pages.Login_InputValidateCode.sendKeys(common
-					.getPhotoAndMessageValidate("cmn:verify:" + mobile
+					.getRedisResponseValue("cmn:verify:" + mobile
 							+ ":imgcode", 15));
 			String beforeStr = pages.Login_GetMessageCodeButton.getText();
 			Dailylog.logInfo("beforeStr" + beforeStr);
@@ -102,7 +102,7 @@ public class NASignInAndSignOut extends SupperTestClass {
 			Assert.assertFalse(beforeStr.equals(afterStr), "获取短信验证码失败！！！！");
 			pages.Login_InputPassword.clear();
 			pages.Login_InputPassword.sendKeys(common
-					.getPhotoAndMessageValidate("cmn:verify:" + mobile
+					.getRedisResponseValue("cmn:verify:" + mobile
 							+ ":code", 15));
 			pages.Login_UserAgreementButton.click();
 			pages.Login_LoginButton.click();

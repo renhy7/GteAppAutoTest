@@ -9,9 +9,9 @@ import org.openqa.selenium.support.PageFactory;
 
 public class Pages {
 
-	public AndroidDriver driver;
+	public AndroidDriver<?> driver;
 
-	public Pages(AndroidDriver driver) {
+	public Pages(AndroidDriver<?> driver) {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
 	}
@@ -143,7 +143,8 @@ public class Pages {
 	public WebElement WeChat_Login;
 
 	// 查询结果页面
-	//@FindBy(how = How.XPATH, using = "//android.widget.TextView[@resource-id=\"com.gantang.gantang:id/title_name\"]")
+	// @FindBy(how = How.XPATH, using =
+	// "//android.widget.TextView[@resource-id=\"com.gantang.gantang:id/title_name\"]")
 	@FindBy(how = How.ID, using = "com.gantang.gantang:id/title_name")
 	public WebElement QueryResult_Title;
 	@FindBy(how = How.XPATH, using = "//android.widget.TextView[@resource-id=\"com.gantang.gantang:id/tv_line_name\"]")
@@ -156,5 +157,21 @@ public class Pages {
 	public WebElement RoutesCustom_ApplyForOpen;
 	@FindBy(how = How.XPATH, using = "//android.widget.TextView[@resource-id=\"com.gantang.gantang:id/line_search\"]")
 	public WebElement RoutesCustom_AreaQuery;
+
+	// 允许安装赶趟巴士APP
+	@FindBy(how = How.XPATH, using = "//android.widget.Button[@resource-id=\"android:id/button1\"]")
+	public WebElement PermitInstall;
+
+	// 热门搜索
+	@FindBy(how = How.XPATH, using = "//android.widget.TextView[@text=\"中关村 \"]")
+	public WebElement HotArea_ZGCButton;
+	@FindBy(how = How.XPATH, using = "//android.widget.TextView[@text=\"呼家楼\"]")
+	public WebElement HotArea_HJLButton;
+	@FindBy(how = How.XPATH, using = "//android.widget.TextView[@text=\"022中关村-西红门-黄村\"]")
+	public WebElement HotArea_ZGCResult;
+	@FindBy(how = How.XPATH, using = "//android.widget.ImageView[@resource-id=\"com.gantang.gantang:id/log_zhuan\"]")
+	public WebElement HotArea_HJLResult;
+	@FindBy(how = How.XPATH, using = "//android.widget.ImageView[@resource-id=\"com.gantang.gantang:id/area_query_back\"]")
+	public WebElement HotArea_QueryBack;
 
 }
