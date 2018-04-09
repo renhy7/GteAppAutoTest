@@ -56,7 +56,7 @@ public class NAHomeHotArea extends SupperTestClass {
 			for (int j = 0; j < hotAreaName.length; j++) {
 				// 判断热门区域是否在APP页面显示出来
 				if (CommonFunction
-						.checkElementDisplays(      
+						.checkElementDisplays(          
 								driver,
 								driver.findElementByXPath("//android.widget.TextView[@text=\""
 										+ hotAreaName[j] + "\"]"), 10)) {

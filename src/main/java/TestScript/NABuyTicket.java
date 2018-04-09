@@ -16,7 +16,7 @@ public class NABuyTicket extends SupperTestClass {
 	private String mobile = "18618268747";
 	private String defaultPassword = "12345";
 	private String query = "022";
-   
+        
 	@Test(alwaysRun = true)
 	public void NABuyTicket() {
 

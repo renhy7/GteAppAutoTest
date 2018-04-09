@@ -7,7 +7,7 @@
 			<class name="TestScript.NAHomeStationQuery" />
 			<class name="TestScript.NABuyTicket" /> -->
             
-            <class name="TestScript.NAHomeHotArea" />
+            <class name="TestScript.NAHomeHotArea" />   
 			
 		</classes>
 	</test> <!-- Test -->

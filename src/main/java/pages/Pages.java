@@ -15,7 +15,7 @@ public class Pages {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
 	}
-        
+          
 	// 启动页面的 “开启体验”按钮元素
 	@FindBy(how = How.ID, using = "com.gantang.gantang:id/button")
 	public WebElement StartUsingAPP;
