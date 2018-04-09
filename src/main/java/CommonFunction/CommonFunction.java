@@ -602,7 +602,7 @@ public class CommonFunction {
 			try {
 				connection.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
+				// TODO Auto-generated catch block   
 				e.printStackTrace();
 			}
 			try {
