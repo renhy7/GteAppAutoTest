@@ -25,7 +25,7 @@ public class NASignInAndSignOut extends SupperTestClass {
 				pages.StartupPage_OpenAccess.click();
 			}
 
-			Dailylog.logInfo("判断是否是首次启动："
+			Dailylog.logInfo("判断是否是首次启动："  
 					+ (common.checkElementDisplays(driver,
 							pages.Home_PersonInfo, 5) || common
 							.checkElementDisplays(driver,

@@ -14,7 +14,7 @@ public abstract class SupperTestClass {
 	public static AndroidDriver driver;
 	public CommonFunction common;
 	public String mobile;
-	public String defaultPassword;
+	public String defaultPassword;   
 
 	@BeforeClass
 	@Parameters({"mobile","defaultPassword"})

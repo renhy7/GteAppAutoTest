@@ -103,7 +103,7 @@ public class Pages {
 	public WebElement AreaQuery_RouteName;
 
 	// 线路查询
-	@FindBy(how = How.ID, using = "com.gantang.gantang:id/tv_buy")
+	@FindBy(how = How.ID, using = "com.gantang.gantang:id/tv_buy")  
 	public WebElement RouteQuery_ChooseSeatButton;
 	@FindBy(how = How.ID, using = "com.gantang.gantang:id/line_sure")
 	public WebElement RouteQuery_ConfirmStationButton;

@@ -15,7 +15,7 @@ import CommonFunction.ScreenFailtureListener;
 
 @Listeners(ScreenFailtureListener.class)
 public class NAMyOrders extends SupperTestClass {
-	
+	   
 	
 	@Test(alwaysRun = true)
 	public void NAMyOrders(){

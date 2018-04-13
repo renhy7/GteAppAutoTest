@@ -109,7 +109,7 @@ public class CommonFunction {
 //		for (String str : hotAreaName) {
 //			Dailylog.logInfo("hotAreaName:" + str);
 //		}
-		Jedis redis = getRedisConnection();
+		Jedis redis = getRedisConnection();   
 		redis.select(15);
 		redis.set("cmn:verify:18618268747:code", "12345");
 

@@ -21,7 +21,7 @@ public class NABuyTicket extends SupperTestClass {
 	private String query = "022";
         
 	@Test(alwaysRun = true)
-	public void NABuyTicket() {
+	public void NABuyTicket() {    
 
 		// 创建数据，给线路创建计划
 		String insertIntoRoutesPlanssql = "INSERT INTO `service_number_plans` "

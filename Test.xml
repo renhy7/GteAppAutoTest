@@ -12,7 +12,7 @@
             <class name="TestScript.NAHomeHotArea" /> 
 			 -->
             <class name="TestScript.NAMyOrders" /> 
-           
+              
 			
 		</classes>
 	</test> <!-- Test -->
