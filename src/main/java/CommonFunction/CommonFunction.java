@@ -97,18 +97,21 @@ public class CommonFunction {
 		// int width = driver.manage().window().getSize().width;
 		// int height = driver.manage().window().getSize().height;
 		// Dailylog.logInfo("width:" + width + "height:" + height);
-		String hotAreaJedis = getRedisResponseValue(
-				"city:city_area_index_chirld:1:0", 15);
-		Dailylog.logInfo("hotAreastr:" + hotAreaJedis);
-		JSONArray hotAreaJson = (JSONArray) JSONArray.fromObject(hotAreaJedis);
-		String[] hotAreaName = new String[hotAreaJson.size()];
-		for (int i = 0; i < hotAreaJson.size(); i++) {
-			JSONObject obj = (JSONObject) hotAreaJson.get(i);
-			hotAreaName[i] = obj.getString("text");
-		}
-		for (String str : hotAreaName) {
-			Dailylog.logInfo("hotAreaName:" + str);
-		}
+//		String hotAreaJedis = getRedisResponseValue(
+//				"city:city_area_index_chirld:1:0", 15);
+//		Dailylog.logInfo("hotAreastr:" + hotAreaJedis);
+//		JSONArray hotAreaJson = (JSONArray) JSONArray.fromObject(hotAreaJedis);
+//		String[] hotAreaName = new String[hotAreaJson.size()];
+//		for (int i = 0; i < hotAreaJson.size(); i++) {
+//			JSONObject obj = (JSONObject) hotAreaJson.get(i);
+//			hotAreaName[i] = obj.getString("text");
+//		}
+//		for (String str : hotAreaName) {
+//			Dailylog.logInfo("hotAreaName:" + str);
+//		}
+		Jedis redis = getRedisConnection();
+		redis.select(15);
+		redis.set("cmn:verify:18618268747:code", "12345");
 
 	}
 
@@ -519,6 +522,10 @@ public class CommonFunction {
 			pages.Login_InputPassword.sendKeys(defaultPassword);
 			pages.Login_LoginButton.click();
 		}
+	}
+	
+	public static void SignOut(AndroidDriver driver, Pages pages){
+		
 	}
 
 	/**

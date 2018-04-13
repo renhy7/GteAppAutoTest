@@ -6,15 +6,23 @@ import java.io.IOException;
 
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Parameters;
 
 import CommonFunction.CommonFunction;
 
 public abstract class SupperTestClass {
-	public AndroidDriver driver;
+	public static AndroidDriver driver;
 	public CommonFunction common;
-	
+	public String mobile;
+	public String defaultPassword;
 
 	@BeforeClass
+	@Parameters({"mobile","defaultPassword"})
+	public void setupParameters(String mobile, String defaultPassword){
+		this.mobile = mobile;
+		this.defaultPassword = defaultPassword;
+		
+	}
 	public void SetupStartService() throws IOException, InterruptedException {
 		common.StartAppiumService();
 		driver = common.getAndroidDriver();

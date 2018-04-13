@@ -58,6 +58,16 @@ public class Pages {
 	// 左侧导航栏昵称的元素
 	@FindBy(how = How.ID, using = "com.gantang.gantang:id/tv_phone")
 	public WebElement LeftNavigation_PhoneNumber;
+	@FindBy(how = How.XPATH, using = "//android.widget.Button[@resource-id=\"com.gantang.gantang:id/my_order\"]")
+	public WebElement LeftNavigation_MyOrders;
+	@FindBy(how = How.XPATH, using = "//android.widget.TextView[@resource-id=\"com.gantang.gantang:id/my_coupon\"]")
+	public WebElement LeftNavigation_MyWallet;
+	@FindBy(how = How.XPATH, using = "//android.widget.TextView[@resource-id=\"com.gantang.gantang:id/line_custom\"]")
+	public WebElement LeftNavigation_LineCustom;
+	@FindBy(how = How.XPATH, using = "//android.widget.TextView[@resource-id=\"com.gantang.gantang:id/opinion_back\"]")
+	public WebElement LeftNavigation_HelpFeedBack;
+	@FindBy(how = How.XPATH, using = "//android.widget.TextView[@resource-id=\"com.gantang.gantang:id/tv_business\"]")
+	public WebElement LeftNavigation_LineBussiness;
 
 	// 首页元素
 	@FindBy(how = How.ID, using = "com.gantang.gantang:id/title_name")
@@ -173,5 +183,12 @@ public class Pages {
 	public WebElement HotArea_HJLResult;
 	@FindBy(how = How.XPATH, using = "//android.widget.ImageView[@resource-id=\"com.gantang.gantang:id/area_query_back\"]")
 	public WebElement HotArea_QueryBack;
+	
+	//我的订单页面
+	@FindBy(how = How.ID, using = "com.gantang.gantang:id/tv_order_name")
+	public WebElement MyOrders_ToRide;
+	@FindBy(how = How.ID, using = "com.gantang.gantang:id/qianwanggoupiao")
+	public WebElement MyOrders_GoBook;
+	
 
 }

@@ -1,17 +1,14 @@
 package TestScript;
 
-import net.sf.json.JSONObject;
-
-import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import pages.Pages;
-import redis.clients.jedis.Jedis;
+import CommonFunction.ScreenFailtureListener;
 import Logger.Dailylog;
 
+@Listeners(ScreenFailtureListener.class)
 public class NASignInAndSignOut extends SupperTestClass {
 
 	private String mobile = "18618268747";

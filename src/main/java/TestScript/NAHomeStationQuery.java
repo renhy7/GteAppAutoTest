@@ -1,11 +1,14 @@
 package TestScript;
 
 import org.testng.Assert;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
-import CommonFunction.CommonFunction;
 import pages.Pages;
+import CommonFunction.CommonFunction;
+import CommonFunction.ScreenFailtureListener;
 
+@Listeners(ScreenFailtureListener.class)
 public class NAHomeStationQuery extends SupperTestClass {
 	private String startStationName = "中关村地铁";
 	private String endStationName = "黄村(公交站)";

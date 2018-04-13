@@ -4,12 +4,15 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.testng.Assert;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import pages.Pages;
 import CommonFunction.CommonFunction;
+import CommonFunction.ScreenFailtureListener;
 import Logger.Dailylog;
 
+@Listeners({ScreenFailtureListener.class})
 public class NAHomeHotArea extends SupperTestClass {
 	private String hotAreaJedis;
 	private String query = "022";

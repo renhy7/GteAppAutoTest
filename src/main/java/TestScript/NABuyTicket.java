@@ -7,11 +7,14 @@ import java.time.Duration;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import pages.Pages;
 import CommonFunction.CommonFunction;
+import CommonFunction.ScreenFailtureListener;
 
+@Listeners(ScreenFailtureListener.class)
 public class NABuyTicket extends SupperTestClass {
 	private String mobile = "18618268747";
 	private String defaultPassword = "12345";
