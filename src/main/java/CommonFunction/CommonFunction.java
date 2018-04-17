@@ -28,9 +28,6 @@ import java.util.Date;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
@@ -650,6 +647,15 @@ public class CommonFunction {
 		}
 	}
 
+	/**
+	 * @author renhaiyang
+	 * @Usage 登陆微信
+	 * @param driver
+	 * @param pages
+	 * @param mobile
+	 * @param password
+	 */
+	
 	public static void loginWechat(AndroidDriver driver, Pages pages,
 			String mobile, String password) {
 		pages.WeChat_Username.clear();
@@ -661,6 +667,16 @@ public class CommonFunction {
 		} else {
 			Assert.assertTrue(false, "微信登录失败……");
 		}
+	}
+	/**
+	 * @author renhaiyang
+	 * @Usage 下拉刷新
+	 */
+	public static void pullToRefresh(AndroidDriver driver){
+		int width = driver.manage().window().getSize().width;
+		int height =driver.manage().window().getSize().height;
+		Duration duration = Duration.ofSeconds(2);
+		new TouchAction(driver).press((int)(width/2), (int)(height/2)).waitAction(duration).moveTo((int)(width*3/4), (int)(height*3/4)).release().perform();
 	}
 
 }

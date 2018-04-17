@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Suite">
-<parameter name="mobile" value="18618268747" />
-<parameter name="defaultPassword" value="12345" />
 	<test name="Test">
 		<classes>
 			<!-- 
@@ -10,7 +8,9 @@
 			<class name="TestScript.NABuyTicket" />			
 			<class name="TestScript.NAHomeStationQuery" />
             <class name="TestScript.NAHomeHotArea" /> 
+            <class name="TestScript.NAMyOrders" /> 
 			 -->
+			 
             <class name="TestScript.NAMyOrders" /> 
               
 			

@@ -189,6 +189,25 @@ public class Pages {
 	public WebElement MyOrders_ToRide;
 	@FindBy(how = How.ID, using = "com.gantang.gantang:id/qianwanggoupiao")
 	public WebElement MyOrders_GoBook;
+	@FindBy(how = How.ID, using = "com.gantang.gantang:id/tv_order_name")
+	public WebElement MyOrders_OrderName;
+	@FindBy(how = How.ID, using = "com.gantang.gantang:id/tv_pay")
+	public WebElement MyOrders_OrderType;
 	
+	//订单支付成功页面
+	@FindBy(how = How.ID, using = "com.gantang.gantang:id/tv_continue_ticket")
+	public WebElement OrdersSuccess_ContinueTicket;
+	@FindBy(how = How.ID, using = "com.gantang.gantang:id/tv_look_order")
+	public WebElement OrdersSuccess_LookOrder;
+	@FindBy(how = How.ID, using = "com.gantang.gantang:id/tv_join_chat")
+	public WebElement OrdersSuccess_JoinChat;
+	@FindBy(how = How.ID, using = "com.gantang.gantang:id/tv_share")
+	public WebElement OrdersSuccess_ShareGetCoupon;
+	
+	//微信支付取消，生成待支付订单元素
+	@FindBy(how = How.ID, using = "com.tencent.mm:id/i2")
+	public WebElement CancelPay_ReturnPrevious;
+	@FindBy(how = How.ID, using = "com.gantang.gantang:id/tv_start_check")
+	public WebElement CancelPay_NowPay;
 
 }

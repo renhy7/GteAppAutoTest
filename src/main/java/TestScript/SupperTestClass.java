@@ -13,26 +13,22 @@ import CommonFunction.CommonFunction;
 public abstract class SupperTestClass {
 	public static AndroidDriver driver;
 	public CommonFunction common;
-	public String mobile;
-	public String defaultPassword;   
 
 	@BeforeClass
-	@Parameters({"mobile","defaultPassword"})
-	public void setupParameters(String mobile, String defaultPassword){
-		this.mobile = mobile;
-		this.defaultPassword = defaultPassword;
-		
-	}
 	public void SetupStartService() throws IOException, InterruptedException {
 		common.StartAppiumService();
+		if(driver != null){
+			driver.quit();
+		}
 		driver = common.getAndroidDriver();
 		Thread.sleep(6000);
 	}
+
 
 	@AfterClass
 	public void closeAllServices() throws IOException, InterruptedException {
 
 		Runtime.getRuntime().exec("taskkill /F /IM node.exe");
-		
+		Thread.sleep(5000);
 	}
 }
