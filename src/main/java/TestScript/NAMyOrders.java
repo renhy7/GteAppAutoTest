@@ -69,12 +69,12 @@ public class NAMyOrders extends SupperTestClass {
 			}
 			pages.Home_PersonInfo.click();
 			pages.LeftNavigation_MyOrders.click();
-			
-			//验证待乘车tab页面数据
+
+			// 验证待乘车tab页面数据
 			if (common.checkElementDisplays(driver, pages.MyOrders_GoBook, 10)) {
 				pages.MyOrders_GoBook.click();
 				pages.Home_AreaQuery.click();
-				
+
 				// 创建数据，给线路创建计划
 				String insertIntoRoutesPlanssql = "INSERT INTO `service_number_plans` "
 						+ "(`buses_id`, `routes_id`, `drivers_id`, `service_date`, `service_time`, `price`,"
@@ -100,16 +100,19 @@ public class NAMyOrders extends SupperTestClass {
 				if (common.checkElementDisplays(driver,
 						pages.OrdersSuccess_LookOrder, 10)) {
 					pages.OrdersSuccess_LookOrder.click();
-					Assert.assertTrue(pages.MyOrders_OrderName.getText().equals(lineName),"待乘车页面订单验证成功……");
+					Assert.assertTrue(pages.MyOrders_OrderName.getText()
+							.equals(lineName), "待乘车页面订单验证成功……");
 				} else {
 					Assert.fail("支付完成后，跳转订单支付成功页面失败……");
 				}
-				//跳转到全部订单页面
-				new TouchAction(driver).press((int)(a2*width), (int)(b2*height)).waitAction(duration).release().perform();
-				//Thread.sleep(3000);
-				if(pages.MyOrders_OrderName.getText().equals(lineName)){
+				// 跳转到全部订单页面
+				new TouchAction(driver)
+						.press((int) (a2 * width), (int) (b2 * height))
+						.waitAction(duration).release().perform();
+				// Thread.sleep(3000);
+				if (pages.MyOrders_OrderName.getText().equals(lineName)) {
 					Assert.assertTrue(true, "验证全部订单tab待乘车状态数据成功……");
-				}else{
+				} else {
 					Assert.fail("验证全部订单tab待乘车状态数据失败……");
 				}
 				common.Delete(deleteUserOrders);
@@ -121,7 +124,7 @@ public class NAMyOrders extends SupperTestClass {
 						10)) {
 					pages.MyOrders_GoBook.click();
 					pages.Home_AreaQuery.click();
-				
+
 					// 创建数据，给线路创建计划
 					String insertIntoRoutesPlanssql = "INSERT INTO `service_number_plans` "
 							+ "(`buses_id`, `routes_id`, `drivers_id`, `service_date`, `service_time`, `price`,"
@@ -147,28 +150,31 @@ public class NAMyOrders extends SupperTestClass {
 					if (common.checkElementDisplays(driver,
 							pages.OrdersSuccess_LookOrder, 10)) {
 						pages.OrdersSuccess_LookOrder.click();
-						Assert.assertTrue(pages.MyOrders_OrderName.getText().equals(lineName),"待乘车页面订单验证成功……");
+						Assert.assertTrue(pages.MyOrders_OrderName.getText()
+								.equals(lineName), "待乘车页面订单验证成功……");
 					} else {
 						Assert.fail("支付完成后，跳转订单支付成功页面失败……");
 					}
-					//跳转到全部订单页面
-					new TouchAction(driver).press((int)(a2*width), (int)(b2*height)).waitAction(duration).release().perform();
-					//Thread.sleep(3000);
-					if(pages.MyOrders_OrderName.getText().equals(lineName)){
+					// 跳转到全部订单页面
+					new TouchAction(driver)
+							.press((int) (a2 * width), (int) (b2 * height))
+							.waitAction(duration).release().perform();
+					// Thread.sleep(3000);
+					if (pages.MyOrders_OrderName.getText().equals(lineName)) {
 						Assert.assertTrue(true, "验证全部订单tab待乘车状态数据成功……");
-					}else{
+					} else {
 						Assert.fail("验证全部订单tab待乘车状态数据失败……");
 					}
 				}
 				common.Delete(deleteUserOrders);
 			}
 
-			//进入待支付tab页面
+			// 进入待支付tab页面
 			new TouchAction(driver)
 					.press((int) (a1 * width), (int) (b1 * height))
 					.waitAction(duration).release().perform();
-			
-			//验证待支付订单tab页数据
+
+			// 验证待支付订单tab页数据
 			if (common.checkElementDisplays(driver, pages.MyOrders_GoBook, 10)) {
 				pages.MyOrders_GoBook.click();
 				pages.Home_AreaQuery.click();
@@ -192,28 +198,33 @@ public class NAMyOrders extends SupperTestClass {
 						+ " 21:30:00','"
 						+ CommonFunction.getNowDateFormatyyyyMMdd()
 						+ " 22:15:00','1','1')";
-				bookTicket(pages, deleteRoutesPlanssql, insertIntoRoutesPlanssql);
-				if(common.checkElementDisplays(driver, pages.CancelPay_ReturnPrevious, 10)){
+				bookTicket(pages, deleteRoutesPlanssql,
+						insertIntoRoutesPlanssql);
+				if (common.checkElementDisplays(driver,
+						pages.CancelPay_ReturnPrevious, 10)) {
 					pages.CancelPay_ReturnPrevious.click();
 					pages.OrdersSuccess_LookOrder.click();
-					if(pages.MyOrders_OrderName.getText().equals(lineName) && pages.CancelPay_NowPay.getText().equals("立即支付")){
+					if (pages.MyOrders_OrderName.getText().equals(lineName)
+							&& pages.CancelPay_NowPay.getText().equals("立即支付")) {
 						Assert.assertTrue(true, "待支付订单页面验证成功……");
-					}else{
+					} else {
 						Assert.fail("生成的待支付订单有问题……");
 					}
-				}else{
+				} else {
 					Assert.fail("支付跳转微信页面失败……");
 				}
-				//跳转到全部订单tab页
-				new TouchAction(driver).press((int)(a2*width), (int)(b2*height)).waitAction(duration).release().perform();
-				//Thread.sleep(3000);
-				if(pages.MyOrders_OrderName.getText().equals(lineName)){
+				// 跳转到全部订单tab页
+				new TouchAction(driver)
+						.press((int) (a2 * width), (int) (b2 * height))
+						.waitAction(duration).release().perform();
+				// Thread.sleep(3000);
+				if (pages.MyOrders_OrderName.getText().equals(lineName)) {
 					Assert.assertTrue(true, "验证全部订单tab待支付状态数据成功……");
-				}else{
+				} else {
 					Assert.fail("验证全部订单tab待支付状态数据失败……");
 				}
-				
-			}else{
+
+			} else {
 				common.Delete(deleteUserOrders);
 				common.pullToRefresh(driver);
 				pages.MyOrders_GoBook.click();
@@ -238,35 +249,100 @@ public class NAMyOrders extends SupperTestClass {
 						+ " 21:30:00','"
 						+ CommonFunction.getNowDateFormatyyyyMMdd()
 						+ " 22:15:00','1','1')";
-				bookTicket(pages, deleteRoutesPlanssql, insertIntoRoutesPlanssql);
-				if(common.checkElementDisplays(driver, pages.CancelPay_ReturnPrevious, 10)){
+				bookTicket(pages, deleteRoutesPlanssql,
+						insertIntoRoutesPlanssql);
+				if (common.checkElementDisplays(driver,
+						pages.CancelPay_ReturnPrevious, 10)) {
 					pages.CancelPay_ReturnPrevious.click();
 					pages.OrdersSuccess_LookOrder.click();
-					if(pages.MyOrders_OrderName.getText().equals(lineName) && pages.CancelPay_NowPay.getText().equals("立即支付")){
+					if (pages.MyOrders_OrderName.getText().equals(lineName)
+							&& pages.CancelPay_NowPay.getText().equals("立即支付")) {
 						Assert.assertTrue(true, "待支付订单页面验证成功……");
-					}else{
+					} else {
 						Assert.fail("生成的待支付订单有问题……");
 					}
-				}else{
+				} else {
 					Assert.fail("支付跳转微信页面失败……");
 				}
-				//跳转到全部订单tab页
-				new TouchAction(driver).press((int)(a2*width), (int)(b2*height)).waitAction(duration).release().perform();
-				//Thread.sleep(3000);
-				if(pages.MyOrders_OrderName.getText().equals(lineName)){
+				// 跳转到全部订单tab页
+				new TouchAction(driver)
+						.press((int) (a2 * width), (int) (b2 * height))
+						.waitAction(duration).release().perform();
+				// Thread.sleep(3000);
+				if (pages.MyOrders_OrderName.getText().equals(lineName)) {
 					Assert.assertTrue(true, "验证全部订单tab待乘车状态数据成功……");
-				}else{
+				} else {
 					Assert.fail("验证全部订单tab待乘车状态数据失败……");
 				}
 			}
-			for(int i = 1; i <= 7; i++){
-				Thread.sleep(50000); //等待待支付订单，进入失效状态
+			for (int i = 1; i <= 7; i++) {
+				Thread.sleep(50000); // 等待待支付订单，进入失效状态
 				common.pullToRefresh(driver);
 			}
-			
-			//校验订单从待支付订单，转变失效状态
-			if(!(pages.MyOrder_OrderStatus.getText().equals("已失效"))){
+
+			// 校验订单从待支付订单，转变失效状态
+			if (!(pages.MyOrder_OrderStatus.getText().equals("已失效"))) {
 				Assert.fail("订单从待支付订单到失效订单错误……");
+			}
+			common.Delete(deleteUserOrders);
+
+			// 订单状态从待乘车状态到交易完成状态
+			if (!common.checkElementDisplays(driver, pages.MyOrders_GoBook, 10)) {
+				common.Delete(deleteUserOrders);
+				common.pullToRefresh(driver);
+			}
+			pages.MyOrders_GoBook.click();
+			pages.Home_AreaQuery.click();
+			// 创建数据，给线路创建计划
+			String insertIntoRoutesPlanssql = "INSERT INTO `service_number_plans` "
+					+ "(`buses_id`, `routes_id`, `drivers_id`, `service_date`, `service_time`, `price`,"
+					+ " `weixin`, `is_enable`, `is_complete`, `create_time`, `update_time`, `last_time`, "
+					+ "`discounts`, `is_discount`, `present_price`, `frequency_number`, `service_date_time`,"
+					+ " `last_date_time`, `create_id`, `part_dept_id`) VALUES('170','57','55','"
+					+ CommonFunction.getNowDateFormatyyyyMMdd()
+					+ "',"
+					+ "'21:30:00','16.8','','1','0','"
+					+ CommonFunction.getNowTime()
+					+ "','"
+					+ CommonFunction.getNowTime()
+					+ "','22:15:00',"
+					+ "'1','0','0.00','"
+					+ query
+					+ "','"
+					+ CommonFunction.getNowDateFormatyyyyMMdd()
+					+ " 21:30:00','"
+					+ CommonFunction.getNowDateFormatyyyyMMdd()
+					+ " 22:15:00','1','1')";
+			bookTicket(pages, deleteRoutesPlanssql, insertIntoRoutesPlanssql);
+			if (common.checkElementDisplays(driver,
+					pages.OrdersSuccess_LookOrder, 10)) {
+				pages.OrdersSuccess_LookOrder.click();
+				Assert.assertTrue(
+						pages.MyOrders_OrderName.getText().equals(lineName),
+						"待乘车页面订单验证成功……");
+			} else {
+				Assert.fail("支付完成后，跳转订单支付成功页面失败……");
+			}
+			// 跳转到全部订单页面
+			new TouchAction(driver)
+					.press((int) (a2 * width), (int) (b2 * height))
+					.waitAction(duration).release().perform();
+			// Thread.sleep(3000);
+			if (pages.MyOrders_OrderName.getText().equals(lineName)) {
+				Assert.assertTrue(true, "验证全部订单tab待乘车状态数据成功……");
+			} else {
+				Assert.fail("验证全部订单tab待乘车状态数据失败……");
+			}
+			String updateplanssql = "UPDATE `service_number_plans` "
+					+ "SET service_time =DATE_FORMAT(SUBDATE(NOW(),INTERVAL 1 HOUR),'%H:%i'), "
+					+ "last_time = DATE_FORMAT(SUBDATE(NOW(),INTERVAL 1 HOUR),'%H:%i') "
+					+ " WHERE service_date =DATE_FORMAT(NOW(),'%Y-%m-%d')  AND frequency_number = '022';";
+
+			common.insertInto(updateplanssql);
+			common.pullToRefresh(driver);
+
+			if (!pages.MyOrders_OrderType.getText().equals("交易完成")) {
+				Assert.fail("订单从待乘车状态到交易完成状态失败……？");
 			}
 			common.Delete(deleteUserOrders);
 
