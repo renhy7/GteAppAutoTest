@@ -233,7 +233,7 @@ public class NARefundOfTicket extends SupperTestClass {
 				Assert.fail("用微信进行购票，购票完成后，钱包的余额对不上……");
 			}
 			Thread.sleep(3000);
-			pages.Home_PersonInfo.click();
+			pages.Home_PersonInfo.click();    
 			pages.LeftNavigation_MyOrders.click();
 			pages.MyOrders_OrderName.click();
 			pages.MyOrders_RefundTicket.click();

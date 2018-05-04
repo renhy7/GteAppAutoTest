@@ -203,7 +203,7 @@ public class Pages {
 	public WebElement MyOrders_OrderType;
 	@FindBy(how = How.ID, using = "com.gantang.gantang:id/tv_tuipiao")
 	public WebElement MyOrders_RefundTicket;
-	@FindBy(how = How.ID, using = "com.gantang.gantang:id/sure")
+	@FindBy(how = How.ID, using = "com.gantang.gantang:id/sure")    
 	public WebElement MyOrders_RefundTicket_Sure;
 	
 	//订单支付成功页面

@@ -746,7 +746,7 @@ public class CommonFunction {
 		}else if(payType == 4){
 			pages.Pay_ConfirmPayButton.click();
 			Thread.sleep(2000);
-			if (CommonFunction.checkElementDisplays(driver,
+			if (CommonFunction.checkElementDisplays(driver,    
 					pages.WeChat_TitleLoginWeChat, 10)) {
 				CommonFunction.loginWechat(driver, pages, "18618268747",
 						"test123"); // 随便写的微信号，需要测试的时候，自己手动需要修改

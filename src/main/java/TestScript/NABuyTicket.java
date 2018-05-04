@@ -158,7 +158,7 @@ public class NABuyTicket extends SupperTestClass {
 				Assert.assertTrue(false, "加入群聊菜单加载失败……");
 			}
 			if (CommonFunction.checkElementDisplays(driver,
-					pages.PaySuccess_ShareRedPacket, 10)) {
+					pages.PaySuccess_ShareRedPacket, 10)) {   
 				Assert.assertTrue(true, "分享有礼菜单加载成功！！！");
 			} else {
 				Assert.assertTrue(true, "分享有礼菜单加载失败……");
