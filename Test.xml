@@ -11,7 +11,7 @@
             <class name="TestScript.NAMyOrders" /> 
 			 -->
 			 
-            <class name="TestScript.NAMyOrders" /> 
+            <class name="TestScript.NARefundOfTicket" /> 
               
 			
 		</classes>

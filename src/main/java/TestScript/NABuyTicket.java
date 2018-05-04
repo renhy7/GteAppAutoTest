@@ -108,32 +108,25 @@ public class NABuyTicket extends SupperTestClass {
 
 			int width = driver.manage().window().getSize().width;
 			int height = driver.manage().window().getSize().height;
-			Duration duration = Duration.ofSeconds(1);
-			Thread.sleep(2000);
+			Duration duration = Duration.ofSeconds(3);
 			new TouchAction(driver)
 					.press((int) (a1 * width), (int) (b1 * height))
 					.waitAction(duration).release().perform();
-			Thread.sleep(2000);
 			new TouchAction(driver)
 					.press((int) (a2 * width), (int) (b2 * height))
 					.waitAction(duration).release().perform();
-			Thread.sleep(2000);
 			new TouchAction(driver)
 					.press((int) (a3 * width), (int) (b3 * height))
 					.waitAction(duration).release().perform();
-			Thread.sleep(2000);
 			new TouchAction(driver)
 					.press((int) (a4 * width), (int) (b4 * height))
 					.waitAction(duration).release().perform();
-			Thread.sleep(2000);
 			new TouchAction(driver)
 					.press((int) (a5 * width), (int) (b5 * height))
 					.waitAction(duration).release().perform();
-			Thread.sleep(2000);
 			new TouchAction(driver)
 					.press((int) (a6 * width), (int) (b6 * height))
 					.waitAction(duration).release().perform();
-			Thread.sleep(2000);
 			if (CommonFunction.checkElementExists(driver,
 					pages.Pay_GoBackAppButton, 5)) {
 				pages.Pay_GoBackAppButton.click();

@@ -20,7 +20,9 @@ import java.net.URLConnection;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.Calendar;
@@ -61,54 +63,12 @@ public class CommonFunction {
 	private static String url = "https://weixin.gtcx.top/ebus/app/ph/getImgInputValidateCode";
 	private static Connection connection;
 	private static PreparedStatement ps;
+	private static Statement statement;
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		// StartAppiumService();
-		// driver = getAndroidDriver();
-		// moveToLeft(driver,4);
-		// Pages pages = new Pages(driver);
-		// pages.StartUsingAPP.click();
-
-		// driver.findElementById("com.gantang.gantang:id/iv_left").click();
-		//
-		// driver.findElementById("com.gantang.gantang:id/iv_head").click();
-		// String insertsql = "INSERT INTO `service_number_plans` "
-		// +
-		// "(`buses_id`, `routes_id`, `drivers_id`, `service_date`, `service_time`, `price`,"
-		// +
-		// " `weixin`, `is_enable`, `is_complete`, `create_time`, `update_time`, `last_time`, "
-		// +
-		// "`discounts`, `is_discount`, `present_price`, `frequency_number`, `service_date_time`,"
-		// +
-		// " `last_date_time`, `create_id`, `part_dept_id`) VALUES('170','57','55','"+getNowDateFormatyyyyMMdd()+"',"
-		// +
-		// "'18:30:00','16.8','','1','0','"+getNowTime()+"','"+getNowTime()+"','20:15:00',"
-		// +
-		// "'1','0','0.01','022','"+getNowDateFormatyyyyMMdd()+" 18:30:00','"+getNowDateFormatyyyyMMdd()+" 20:15:00','1','1')";
-		// insertInto(insertsql);
-		// String deletesql =
-		// "DELETE FROM `service_number_plans` WHERE service_date = '"+getNowDateFormatyyyyMMdd()+"' AND frequency_number = '022'";
-		// Delete(deletesql);
-
-		// int width = driver.manage().window().getSize().width;
-		// int height = driver.manage().window().getSize().height;
-		// Dailylog.logInfo("width:" + width + "height:" + height);
-//		String hotAreaJedis = getRedisResponseValue(
-//				"city:city_area_index_chirld:1:0", 15);
-//		Dailylog.logInfo("hotAreastr:" + hotAreaJedis);
-//		JSONArray hotAreaJson = (JSONArray) JSONArray.fromObject(hotAreaJedis);
-//		String[] hotAreaName = new String[hotAreaJson.size()];
-//		for (int i = 0; i < hotAreaJson.size(); i++) {
-//			JSONObject obj = (JSONObject) hotAreaJson.get(i);
-//			hotAreaName[i] = obj.getString("text");
-//		}
-//		for (String str : hotAreaName) {
-//			Dailylog.logInfo("hotAreaName:" + str);
-//		}
-		Jedis redis = getRedisConnection();   
-		redis.select(15);
-		redis.set("cmn:verify:18618268747:code", "12345");
+		
+		System.out.print(CommonFunction.getNowDateFormatMM());
 
 	}
 
@@ -131,8 +91,13 @@ public class CommonFunction {
 				sb.append(line);
 			}
 			Dailylog.logInfo("exe cmd response device munber:" + sb);
-			adbDeviceNumber = sb.toString().split(" ")[4].split("	")[0]
-					.toString();
+			if( sb.toString().contains("starting")){
+				adbDeviceNumber = sb.toString().split("\\*")[4].split("	")[0];
+			}else if(sb.toString().contains("killing")){
+				adbDeviceNumber = sb.toString().split("\\*")[2].split("	")[0];
+			}else{
+				adbDeviceNumber = sb.toString().split(" ")[3].split("	")[0].split("attached")[1];
+			}
 			Dailylog.logInfo("adbDeviceNumber:" + adbDeviceNumber);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -532,9 +497,13 @@ public class CommonFunction {
 	 * @return
 	 */
 
-	public static int getNowDateFormatMM() {
+	public static String getNowDateFormatMM() {
 		Calendar now = Calendar.getInstance();
-		return now.get(Calendar.DAY_OF_MONTH);
+		if(now.get(Calendar.DAY_OF_MONTH) < 10){
+			return "0"+now.get(Calendar.DAY_OF_MONTH);
+		}else{
+			return now.get(Calendar.DAY_OF_MONTH)+"";
+		}
 	}
 
 	/**
@@ -561,6 +530,18 @@ public class CommonFunction {
 		Date date = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		return sdf.format(date);
+	}
+	
+	
+	public static String getFutureTime(int n){
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		calendar.add(Calendar.DATE, n);
+		date = calendar.getTime();
+		return sdf.format(date);
+				
 	}
 
 	/**
@@ -646,6 +627,36 @@ public class CommonFunction {
 			}
 		}
 	}
+	
+	
+	public static String selectData(String sql){
+		connection = getMysqlConnection();
+		String passengerId = "";
+		try{
+			statement = connection.createStatement();
+			ResultSet result = statement.executeQuery(sql);
+			while(result.next()){
+				passengerId = result.getString("id");
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			try {
+				statement.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return passengerId;
+	}
 
 	/**
 	 * @author renhaiyang
@@ -677,6 +688,210 @@ public class CommonFunction {
 		int height =driver.manage().window().getSize().height;
 		Duration duration = Duration.ofSeconds(2);
 		new TouchAction(driver).press((int)(width/2), (int)(height/2)).waitAction(duration).moveTo((int)(width*3/4), (int)(height*3/4)).release().perform();
+	}
+	/**
+	 * @author renhaiyang
+	 *@usage 订单支付: 0:微信支付0元支付; 1:余额支付;2:优惠券支付; 3:优惠券+余额+微信支付;4:纯微信支付
+	 * @param pages
+	 * @param deleteRoutesPlanssql
+	 * @param insertIntoRoutesPlanssql
+	 * @param query
+	 * @throws InterruptedException 
+	 */
+	
+	public static void bookTicket(Pages pages, String deleteRoutesPlanssql,
+			String insertIntoRoutesPlanssql, String query, int payType, float couponPrice) throws InterruptedException {
+		CommonFunction.Delete(deleteRoutesPlanssql); // 先删除线路计划
+		CommonFunction.insertInto(insertIntoRoutesPlanssql); // 再进行插入线路计划
+		pages.Home_AreaQuery.click();
+		pages.AreaQuery_QueryInput.clear();
+		pages.AreaQuery_QueryInput.sendKeys(query);
+		pages.AreaQuery_QueryButton.click();
+		pages.AreaQuery_RouteName.click();
+		pages.RouteQuery_ChooseSeatButton.click();
+		if (CommonFunction.checkElementDisplays(driver,
+				pages.RouteQuery_ConfirmStationButton, 5)) {
+			pages.RouteQuery_ConfirmStationButton.click();
+		}
+		WebElement BookSeat_SelectData = driver.findElement(By
+				.xpath("//android.widget.TextView[@text=\""
+						+ CommonFunction.getNowDateFormatMM() + "\"]"));
+		if (CommonFunction.checkElementDisplays(driver, BookSeat_SelectData, 5)) {
+			BookSeat_SelectData.click();
+		}
+		pages.BookSeat_SelectSeat.click();
+		pages.BookSeat_ConfirmSeat.click();
+		pages.BookSeat_ConfirmSeat.click();
+		if(payType == 0){
+			//直接点击支付按钮，支付类型：0元订单或者微信支付
+			pages.Pay_ConfirmPayButton.click();
+		}else if(payType == 1){
+			pages.Pay_SelectBalanceCheckbox.click();
+			pages.Pay_ConfirmPayButton.click();
+		}else if(payType == 2){
+			String startTime = CommonFunction.getNowTime();
+			String endTime = CommonFunction.getFutureTime(1);
+			CommonFunction.sendCouponsToUser(mobile, couponPrice, startTime, endTime);
+			pages.Pay_CouponsImg.click();
+			pages.Pay_SelectCoupons.click();
+			pages.Pay_ConfirmPayButton.click();
+		}else if(payType == 3){
+			String startTime = CommonFunction.getNowTime();
+			String endTime = CommonFunction.getFutureTime(1);
+			CommonFunction.sendCouponsToUser(mobile, couponPrice, startTime, endTime);
+			pages.Pay_CouponsImg.click();
+			pages.Pay_SelectCoupons.click();
+			pages.Pay_SelectBalanceCheckbox.click();
+			pages.Pay_ConfirmPayButton.click();
+		}else if(payType == 4){
+			pages.Pay_ConfirmPayButton.click();
+			Thread.sleep(2000);
+			if (CommonFunction.checkElementDisplays(driver,
+					pages.WeChat_TitleLoginWeChat, 10)) {
+				CommonFunction.loginWechat(driver, pages, "18618268747",
+						"test123"); // 随便写的微信号，需要测试的时候，自己手动需要修改
+			}
+			Thread.sleep(10000);
+			pages.Pay_NowPayButton.click();
+
+			// 第一个密码的坐标系数：1
+			Double a1 = 120.8 / 720;
+			Double b1 = 873.2 / 1280;
+			// 第二个密码的坐标系统:7
+			Double a2 = 120.8 / 720;
+			Double b2 = 1092.0 / 1280;
+			// 第三个密码的坐标系数:5
+			Double a3 = 351.5 / 720;
+			Double b3 = 981.2 / 1280;
+			// 第四个密码的坐标系数：1
+			Double a4 = 120.8 / 720;
+			Double b4 = 873.2 / 1280;
+			// 第五个密码的坐标系数：6
+			Double a5 = 603.2 / 720;
+			Double b5 = 981.2 / 1280;
+			// 第六个密码的坐标系数：5
+			Double a6 = 351.5 / 720;
+			Double b6 = 981.2 / 1280;
+
+			int width = driver.manage().window().getSize().width;
+			int height = driver.manage().window().getSize().height;
+			Duration duration = Duration.ofSeconds(3);
+			new TouchAction(driver)
+					.press((int) (a1 * width), (int) (b1 * height))
+					.waitAction(duration).release().perform();
+			new TouchAction(driver)
+					.press((int) (a2 * width), (int) (b2 * height))
+					.waitAction(duration).release().perform();
+			new TouchAction(driver)
+					.press((int) (a3 * width), (int) (b3 * height))
+					.waitAction(duration).release().perform();
+			new TouchAction(driver)
+					.press((int) (a4 * width), (int) (b4 * height))
+					.waitAction(duration).release().perform();
+			new TouchAction(driver)
+					.press((int) (a5 * width), (int) (b5 * height))
+					.waitAction(duration).release().perform();
+			new TouchAction(driver)
+					.press((int) (a6 * width), (int) (b6 * height))
+					.waitAction(duration).release().perform();
+			if (CommonFunction.checkElementExists(driver,
+					pages.Pay_GoBackAppButton, 5)) {
+				pages.Pay_GoBackAppButton.click();
+			} else {
+				Assert.assertTrue(false, "订单支付失败！！！！！！");
+			}
+		}
+		
+	}
+	
+	/**
+	 * @author renhaiyang
+	 * @Usage 给指定用户发送优惠券
+	 * @param mobile
+	 * @param price
+	 * @param startTime
+	 * @param endTime
+	 */
+	public static void sendCouponsToUser(String mobile, float price, String startTime, String endTime){
+		String passenger_id = CommonFunction.selectData("select id from passenger where mobile = '"+mobile+"'");
+		connection = getMysqlConnection();
+		try {
+			ps = connection.prepareStatement("INSERT INTO `coupons` ( `code`, `price`, `passenger_id`, `receive_date`,"
+					+ " `product_channel`, `channel`, `used`, `timeout_date`, `coupon_type`, `use_routes`, `id_code`, "
+					+ "`use_restrict`, `used_date`, `used_order_number`)"
+					+ " VALUES('','"+price+"','"+passenger_id+"','"+startTime+"',"
+					+ "NULL,'APPAutoTest','0','"+endTime+"','3','0','0','0',NULL,NULL);");
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block        
+				e.printStackTrace();
+			}
+			try {
+				ps.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	/**
+	 * @author renhaiyang
+	 * @usage 获取用户当前余额
+	 * @param pages
+	 * @return
+	 */
+	public static String getBalance(Pages pages){
+		pages.Home_PersonInfo.click();
+		pages.LeftNavigation_MyWallet.click();
+		pages.MyWallet_MyBalance.click();
+		String money = "";
+		money = pages.MyBalance_MyMoney.getText();
+		pages.Home_Left.click();
+		pages.Home_Left.click();
+		pages.Home_PersonInfo.click();
+		return money;
+	}
+	/**
+	 * @author renhaiyang
+	 * @usage 进入我的订单页面，切换订单类型tab页面
+	 * @param driver
+	 * @param pages
+	 * @param tabs
+	 */
+	public static void myOrdersSwitchTabs(AndroidDriver driver, Pages pages, int tabs){
+
+		//我的订单-->待乘车
+		double a1 = 112.8 / 720;
+		double b1 = 188.8 / 1280;
+		
+		// 我的订单-->待支付
+		double a2 = 360.5 / 720;
+		double b2 = 188.8 / 1280;
+
+		// 我的订单-->全部订单
+		double a3 = 600.2 / 720;
+		double b3 = 188.8 / 1280;
+
+		int width = driver.manage().window().getSize().width;
+		int height = driver.manage().window().getSize().height;
+		
+		Duration duration = Duration.ofSeconds(3);
+		if(tabs == 1){
+			//跳转到我的订单-->待乘车tab页面
+			new TouchAction(driver).press((int)(a1 * width), (int)(b1 * height)).waitAction(duration).release().perform();
+		}else if(tabs == 2){
+			//跳转到我的订单-->待支付tab页面
+			new TouchAction(driver).press((int)(a2 * width), (int)(b2 *height)).waitAction(duration).release().perform();
+		}else{
+			//跳转到我的订单-->全部订单tab页面
+			new TouchAction(driver).press((int)(a3 * width), (int)(b3 * height)).waitAction(duration).release().perform();
+		}
 	}
 
 }

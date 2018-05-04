@@ -117,6 +117,12 @@ public class Pages {
 	// 支付页面
 	@FindBy(how = How.XPATH, using = "//android.widget.Button[@resource-id=\"com.gantang.gantang:id/pay_money\"]")
 	public WebElement Pay_ConfirmPayButton;
+	@FindBy(how = How.ID, using = "com.gantang.gantang:id/checkBox")
+	public WebElement Pay_SelectBalanceCheckbox;
+	@FindBy(how = How.ID, using = "com.gantang.gantang:id/tv_shiyongyouhuijuan_img")
+	public WebElement Pay_CouponsImg;
+	@FindBy(how = How.ID, using = "com.gantang.gantang:id/iv_bg_color")
+	public WebElement Pay_SelectCoupons;
 
 	// 确认交易
 	@FindBy(how = How.XPATH, using = "//android.widget.Button[@resource-id=\"com.tencent.mm:id/dyg\"]")
@@ -137,6 +143,8 @@ public class Pages {
 	public WebElement PaySuccess_JoinChat;
 	@FindBy(how = How.XPATH, using = "//android.widget.LinearLayout[@resource-id=\"com.gantang.gantang:id/tv_share\"]")
 	public WebElement PaySuccess_ShareRedPacket;
+	@FindBy(how = How.ID, using = "com.gantang.gantang:id/tv_right")
+	public WebElement PaySuccess_ReturnHome;
 
 	// 我的订单页面
 	@FindBy(how = How.ID, using = "com.gantang.gantang:id/tv_pay")
@@ -193,6 +201,10 @@ public class Pages {
 	public WebElement MyOrders_OrderName;
 	@FindBy(how = How.ID, using = "com.gantang.gantang:id/tv_pay")
 	public WebElement MyOrders_OrderType;
+	@FindBy(how = How.ID, using = "com.gantang.gantang:id/tv_tuipiao")
+	public WebElement MyOrders_RefundTicket;
+	@FindBy(how = How.ID, using = "com.gantang.gantang:id/sure")
+	public WebElement MyOrders_RefundTicket_Sure;
 	
 	//订单支付成功页面
 	@FindBy(how = How.ID, using = "com.gantang.gantang:id/tv_continue_ticket")
@@ -209,5 +221,21 @@ public class Pages {
 	public WebElement CancelPay_ReturnPrevious;
 	@FindBy(how = How.ID, using = "com.gantang.gantang:id/tv_start_check")
 	public WebElement CancelPay_NowPay;
+	
+	//我的钱包页面
+	@FindBy(how = How.ID, using = "com.gantang.gantang:id/my_money_all")
+	public WebElement MyWallet_MyBalance;
+	@FindBy(how = How.ID, using = "com.gantang.gantang:id/my_coupon_all")
+	public WebElement MyWallet_MyCoupon;
+	@FindBy(how = How.ID, using = "com.gantang.gantang:id/money")
+	public WebElement MyBalance_MyMoney;
+	@FindBy(how = How.ID, using = "")
+	public WebElement MyBalance_DrawCashButton;
+	@FindBy(how = How.ID, using = "com.gantang.gantang:id/prepaid_phone_change")
+	public WebElement MyBalance_RechangeMoney;
+	@FindBy(how = How.ID, using = "com.gantang.gantang:id/home_left")
+	public WebElement Home_Left;
+
+	
 
 }
